@@ -1,31 +1,29 @@
 import { exec } from "child_process";
 import BaseTask from "./base-task";
-import is from "is";
 
-function pExec(command) {
+function pExec(command, options={}) {
   return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
+    exec(command, options, (error, stdout, stderr) => {
       if (error) return reject(error);
       resolve({ command, stdout, stderr });
     });
   });
 }
 
-
 export default class ShellTask extends BaseTask {
-  constructor() {
+  constructor(generatorDir, destDir) {
     super();
+
     this.name = "shell";
+    this.destDir = destDir;
   }
 
   run(task) {
     return new Promise((resolve, reject) => {
-      if (!this.shouldRun(task)) return resolve();
-
-      task.runs
+      task.commands
         .map(command => () => {
           this.log(`command: ${command}`);
-          return pExec(command).then(result => this.log(result.stdout));
+          return pExec(command, { cwd: this.destDir }).then(result => this.log(result.stdout));
         })
         .reduce((p, f) => p.then(f), Promise.resolve())
         .then(resolve)

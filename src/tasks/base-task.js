@@ -6,6 +6,12 @@ export default class BaseTask {
     return task.type === this.name;
   }
 
+  async checkAndRun(task) {
+    if (!this.shouldRun(task)) return;
+
+    return await this.run(task);
+  }
+
   log(logs, type=this.name) {
     if (is.string(logs)) logs = [logs];
     for (const log of logs) {
