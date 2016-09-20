@@ -1,5 +1,11 @@
 module.exports = [
   {
+    type: "clow-template",
+    templates: [
+      "@airtoxin/clow-template-babel"
+    ]
+  },
+  {
     type: "shell",
     commands: [
       "echo 'start clowing...'"
