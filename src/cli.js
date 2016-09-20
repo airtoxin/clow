@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import 'babel-polyfill';
 import fse from 'fs-extra';
 import path from 'path';
 import isUrl from 'is-url';
