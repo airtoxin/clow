@@ -9,7 +9,6 @@
     "async-await"
   ],
   "rules": {
-    "react/require-extension": "off",
     "generator-star-spacing": "off"
   }
 }
