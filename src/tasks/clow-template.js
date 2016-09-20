@@ -1,36 +1,26 @@
-import path from "path";
-import BaseTask from "./base-task";
-import { pExec } from "../utils";
-import clow from "../index";
-
-// clowing clow-template-babel
-// {
-//   type: "clow-template",
-//   templates: [
-//     "@airtoxin/clow-template-babel"
-//   ]
-// }
+import path from 'path';
+import BaseTask from './base-task';
+import { downloadTmp } from '../utils';
+import clow from '../index';
 
 export default class ClowTemplateTask extends BaseTask {
   constructor(generatorDir, destDir) {
     super();
 
-    this.name = "clow-template";
+    this.name = 'clow-template';
     this.generatorDir = generatorDir;
     this.destDir = destDir;
   }
 
   async run(task) {
-    const { stdout: npmRoot } = await pExec("npm root -g");
-    const scoped = task.scoped;
+    for (const url of task.templates) {
+      const templateDir = await downloadTmp(url);
+      const clowFilePath = path.resolve(templateDir, 'clow');
 
-    for (const template of task.templates) {
-      const templatePath = path.resolve(npmRoot.trim(), template);
-      const tasksFilePath = path.resolve(templatePath, "clow");
+      // eslint-disable-next-line global-require
+      const tasks = require(clowFilePath);
 
-      const tasks = require(tasksFilePath);
-
-      await clow(tasks, templatePath, this.destDir);
+      await clow(tasks, templateDir, this.destDir);
     }
   }
 }

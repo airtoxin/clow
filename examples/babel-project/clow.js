@@ -2,7 +2,7 @@ module.exports = [
   {
     type: "clow-template",
     templates: [
-      "@airtoxin/clow-template-babel"
+      "https://github.com/airtoxin/clow-template-babel/archive/master.zip"
     ]
   },
   {

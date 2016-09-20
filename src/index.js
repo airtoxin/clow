@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import ShellTask from './tasks/shell';
 import NpmInstallTask from './tasks/npm-install';
 import TemplateTask from './tasks/template';
-import ClowTemplateTask from "./tasks/clow-template";
+import ClowTemplateTask from './tasks/clow-template';
 
 export default async function clow(tasks, generatorDir, destDir) {
   const shellTask = new ShellTask(generatorDir, destDir);
