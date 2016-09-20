@@ -1,8 +1,8 @@
-# clow
+# clow [![Build Status](https://travis-ci.org/airtoxin/clow.svg?branch=master)](https://travis-ci.org/airtoxin/clow)
 
 project generator
 
-![](clow.png)
+![clow logo](clow.png)
 
 ## Install
 
