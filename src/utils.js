@@ -14,7 +14,8 @@ export function pExec(command, options = {}) {
 }
 
 export async function downloadTmp(url) {
-  const tmpDirPath = path.resolve(os.tmpdir(), 'tmp.XXXXXXXXXX');
+  const random = Math.floor(Math.random() * 100000);
+  const tmpDirPath = path.resolve(os.tmpdir(), `tmp.${random}`);
   fse.ensureDirSync(tmpDirPath);
 
   const [{ path: fileDir }] = await download(url, tmpDirPath, { extract: true });

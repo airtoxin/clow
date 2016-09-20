@@ -1,14 +1,5 @@
-import { exec } from 'child_process';
 import BaseTask from './base-task';
-
-function pExec(command, options = {}) {
-  return new Promise((resolve, reject) => {
-    exec(command, options, (error, stdout, stderr) => {
-      if (error) return reject(error);
-      return resolve({ command, stdout, stderr });
-    });
-  });
-}
+import { pExec } from '../utils';
 
 export default class NpmInstallTask extends BaseTask {
   constructor(generatorDir, destDir) {

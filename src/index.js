@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import path from 'path';
+import _BaseTask from './tasks/base-task';
 import ShellTask from './tasks/shell';
 import NpmInstallTask from './tasks/npm-install';
 import TemplateTask from './tasks/template';
@@ -25,3 +26,5 @@ export default async function clow(generatorDir, destDir) {
     console.log(); // spacing each taks logs
   }
 }
+
+export const BaseTask = _BaseTask;
