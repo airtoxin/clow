@@ -16,6 +16,6 @@ try {
   // destDir already exists
 }
 
-const tasks = require(path.resolve(generatorDir, 'tasks'));
+const tasks = require(path.resolve(generatorDir, 'clow'));
 // eslint-disable-next-line no-console
 clow(tasks, generatorDir, destDir).catch(e => console.error(e));

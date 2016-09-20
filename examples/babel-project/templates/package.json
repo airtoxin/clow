@@ -1,0 +1,29 @@
+{
+  "name": "{{name}}",
+  "version": "0.0.1",
+  "description": "{{description}}",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rimraf lib && babel src -d lib --copy-files",
+    "watch": "rimraf lib && babel src -d lib --copy-files --watch",
+    "lint": "eslint {src,test} --fix",
+    "unittest": "mocha --compilers js:babel-register --recursive test",
+    "test": "npm run lint && npm run unittest",
+    "prepublish": "npm test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/{{auther}}/{{name}}.git"
+  },
+  "keywords": [],
+  "author": "{{auther}}",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/{{auther}}/{{name}}/issues"
+  },
+  "homepage": "https://github.com/{{auther}}/{{name}}#readme",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}

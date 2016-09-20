@@ -21,7 +21,7 @@ export default class TemplateTask extends BaseTask {
     const complimented = {};
     for (const [key, value] of Object.entries(rawArgs)) {
       if (is.null(value)) {
-        this.log(chalk.bold(`Input value of ${key}.`));
+        this.log(chalk.bold(`Input value of {{${key}}}.`));
         const { input } = await inquirer.prompt([{
           type: 'input',
           name: 'input',
@@ -40,7 +40,7 @@ export default class TemplateTask extends BaseTask {
     const args = await this.complimentTemplateArgs(task.args);
     const srcDir = path.resolve(this.generatorDir, task.src.cwd);
     const destDir = path.resolve(this.destDir, task.dest);
-    const filenames = glob.sync(task.src.pattern, { cwd: srcDir });
+    const filenames = glob.sync(task.src.pattern, { cwd: srcDir, dot: true });
 
     for (const filename of filenames) {
       const srcFile = path.resolve(srcDir, filename);

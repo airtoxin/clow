@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "env": {
+    "mocha": true
+  },
+  "plugins": [
+    "babel",
+    "async-await"
+  ],
+  "rules": {
+    "react/require-extension": "off",
+    "generator-star-spacing": "off"
+  }
+}
