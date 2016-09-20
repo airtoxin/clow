@@ -16,9 +16,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/airtoxin/clow.git"
+    "url": "https://github.com/airtoxin/clow"
   },
-  "keywords": [],
+  "keywords": [
+    "generator",
+    "project",
+    "scaffold",
+    "template",
+    "boilerplate",
+    "cli",
+    "cardcaptor sakura"
+  ],
   "author": "airtoxin <airtoxin@icloud.com>",
   "license": "MIT",
   "bugs": {
