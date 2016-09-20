@@ -1,11 +1,11 @@
-import { exec } from "child_process";
-import BaseTask from "./base-task";
+import { exec } from 'child_process';
+import BaseTask from './base-task';
 
-function pExec(command, options={}) {
+function pExec(command, options = {}) {
   return new Promise((resolve, reject) => {
     exec(command, options, (error, stdout, stderr) => {
       if (error) return reject(error);
-      resolve({ command, stdout, stderr });
+      return resolve({ command, stdout, stderr });
     });
   });
 }
@@ -14,13 +14,13 @@ export default class NpmInstallTask extends BaseTask {
   constructor(generatorDir, destDir) {
     super();
 
-    this.name = "npm-install";
+    this.name = 'npm-install';
     this.destDir = destDir;
   }
 
   run(task) {
     return new Promise((resolve, reject) => {
-      const { dependencies=[], devDependencies=[] } = task;
+      const { dependencies = [], devDependencies = [] } = task;
 
       const depPromise = () => dependencies
         .map(name => () => {

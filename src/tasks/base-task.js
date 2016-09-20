@@ -1,5 +1,5 @@
-import is from "is";
-import chalk from "chalk";
+import is from 'is';
+import chalk from 'chalk';
 
 export default class BaseTask {
   shouldRun(task) {
@@ -7,16 +7,18 @@ export default class BaseTask {
   }
 
   async checkAndRun(task) {
-    if (!this.shouldRun(task)) return;
+    if (!this.shouldRun(task)) return undefined;
 
     return await this.run(task);
   }
 
-  log(logs, type=this.name) {
-    if (is.string(logs)) logs = [logs];
-    for (const log of logs) {
-      for (const line of ("" + log).split("\n")) {
+  log(message, type = this.name) {
+    const messages = is.string(message) ? [message] : message;
+
+    for (const msg of messages) {
+      for (const line of String(msg).split('\n')) {
         const prefix = chalk.blue(`[ ${type} ]`);
+        // eslint-disable-next-line no-console
         console.log(`${prefix} ${line}`);
       }
     }

@@ -1,11 +1,11 @@
-import { exec } from "child_process";
-import BaseTask from "./base-task";
+import { exec } from 'child_process';
+import BaseTask from './base-task';
 
-function pExec(command, options={}) {
+function pExec(command, options = {}) {
   return new Promise((resolve, reject) => {
     exec(command, options, (error, stdout, stderr) => {
       if (error) return reject(error);
-      resolve({ command, stdout, stderr });
+      return resolve({ command, stdout, stderr });
     });
   });
 }
@@ -14,7 +14,7 @@ export default class ShellTask extends BaseTask {
   constructor(generatorDir, destDir) {
     super();
 
-    this.name = "shell";
+    this.name = 'shell';
     this.destDir = destDir;
   }
 

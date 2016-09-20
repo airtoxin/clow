@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import fs from "fs";
-import path from "path";
-import minimist from "minimist";
-import clow from "./index";
+import fs from 'fs';
+import path from 'path';
+import minimist from 'minimist';
+import clow from './index';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -12,7 +12,10 @@ const destDir = path.resolve(process.cwd(), argv._[1]);
 
 try {
   fs.mkdirSync(destDir);
-} catch(e) {}
+} catch (e) {
+  // destDir already exists
+}
 
-const tasks = require(path.resolve(generatorDir, "tasks"));
+const tasks = require(path.resolve(generatorDir, 'tasks'));
+// eslint-disable-next-line no-console
 clow(tasks, generatorDir, destDir).catch(e => console.error(e));
