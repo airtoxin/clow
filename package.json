@@ -4,11 +4,12 @@
   "description": "code generator",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src -d lib",
-    "watch": "babel src --watch -d lib",
+    "build": "rimraf lib && babel src -d lib --copy-files",
+    "watch": "rimraf lib && babel src -d lib --copy-files --watch",
     "lint": "eslint {src,test} --fix",
     "unittest": "mocha --compilers js:babel-register --recursive test",
-    "test": "npm run lint && npm run unittest"
+    "test": "npm run lint && npm run unittest",
+    "prepublish": "npm run build"
   },
   "bin": {
     "clow": "lib/cli.js"
