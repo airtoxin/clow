@@ -1,7 +1,7 @@
 {
   "name": "clow",
   "version": "0.0.4",
-  "description": "code generator",
+  "description": "The project generator🔯",
   "main": "lib/index.js",
   "scripts": {
     "build": "rimraf lib && babel src -d lib --copy-files",
@@ -52,7 +52,7 @@
     "inquirer": "1.1.3",
     "is": "3.1.0",
     "is-url": "1.2.2",
-    "minimist": "1.2.0",
+    "meow": "3.7.0",
     "npm": "3.10.7"
   }
 }

@@ -3,20 +3,37 @@
 import fse from 'fs-extra';
 import path from 'path';
 import isUrl from 'is-url';
-import minimist from 'minimist';
+import meow from "meow";
 import { downloadTmp } from './utils';
 import clow from './index';
 
-const argv = minimist(process.argv.slice(2));
+async function handler() {
+  const cli = meow(`
+    Usage:
+      $ clow <src> [src...] <dest>
 
-const [rawSrc, rawDest] = argv._;
-const srcDir = path.resolve(process.cwd(), rawSrc);
-const destDir = path.resolve(process.cwd(), rawDest);
-fse.ensureDirSync(destDir);
+      'src' is (filepath|url) of clow template project.
+      url src only support url of compressed file.
 
-const main = isUrl(rawSrc) ?
-  downloadTmp(rawSrc).then(dirpath => clow(dirpath, destDir)) :
-  clow(srcDir, destDir);
+      'dest' is filepath of project destination.
+  `, {});
 
-// eslint-disable-next-line no-console
-main.catch(e => console.error(e));
+  if (cli.input.length < 2) return cli.showHelp();
+
+  const rawSrcs = cli.input.slice(0, -1);
+  const [rawDest] = cli.input.slice(-1);
+  const srcDirs = rawSrcs.map(rawSrc => path.resolve(process.cwd(), rawSrc));
+  const destDir = path.resolve(process.cwd(), rawDest);
+  fse.ensureDirSync(destDir);
+
+  for (const rawSrc of rawSrcs) {
+    if (isUrl(rawSrc)) {
+      await downloadTmp(rawSrc).then(dirpath => clow(dirpath, destDir));
+    } else {
+      const srcDir = path.resolve(process.cwd(), rawSrc);
+      await clow(srcDir, destDir);
+    }
+  }
+}
+
+handler();
