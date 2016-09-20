@@ -1,6 +1,6 @@
 {
   "name": "clow",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "code generator",
   "main": "lib/index.js",
   "scripts": {
