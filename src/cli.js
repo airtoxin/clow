@@ -3,10 +3,11 @@
 import fse from 'fs-extra';
 import path from 'path';
 import isUrl from 'is-url';
-import meow from "meow";
+import meow from 'meow';
 import { downloadTmp } from './utils';
 import clow from './index';
 
+// eslint-disable-next-line consistent-return
 async function handler() {
   const cli = meow(`
     Usage:
@@ -22,7 +23,6 @@ async function handler() {
 
   const rawSrcs = cli.input.slice(0, -1);
   const [rawDest] = cli.input.slice(-1);
-  const srcDirs = rawSrcs.map(rawSrc => path.resolve(process.cwd(), rawSrc));
   const destDir = path.resolve(process.cwd(), rawDest);
   fse.ensureDirSync(destDir);
 

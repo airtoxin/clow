@@ -1,5 +1,6 @@
 import is from 'is';
 import chalk from 'chalk';
+import { exec } from 'child_process';
 
 export default class BaseTask {
   shouldRun(task) {
@@ -22,5 +23,14 @@ export default class BaseTask {
         console.log(`${prefix} ${line}`);
       }
     }
+  }
+
+  pExec(command, options = {}) { // eslint-disable-line class-methods-use-this
+    return new Promise((resolve, reject) => {
+      exec(command, options, (error, stdout, stderr) => {
+        if (error) return reject(error);
+        return resolve({ command, stdout, stderr });
+      });
+    });
   }
 }

@@ -9,7 +9,7 @@
     "lint": "eslint {src,test} --fix",
     "unittest": "mocha --compilers js:babel-register --recursive test",
     "test": "npm run lint && npm run unittest",
-    "prepublish": "npm run build"
+    "prepublish": "npm test && npm run build"
   },
   "bin": {
     "clow": "lib/cli.js"
