@@ -12,20 +12,18 @@ The project generator🔯
 
 Once `clow` installed, you can use `clow` command.
 
-Additional plugin install needed: `$ npm install -g clow-plugin-task-npm-install`.
-
-Then, let's try `$ clow https://github.com/airtoxin/clow-template-babel/archive/master.zip my-first-project`.
+Then, let's try `$ clow github:airtoxin/clow-template-babel my-first-project`.
 This command ask some settings, so answer it and wait a few minutes. When command finished, you got babel project template on `my-first-project` directory. Run `npm run watch`, `npm test` ... in created project directory. It works! wow!
 
 ## Documents
 
 ### CLI
 
-`clow` cli tool takes 2 or more arguments. Simple!
+`clow` takes 2 or more arguments: list of <src> and <dest>. Simple!
 
 The last argument is path of project destination.
-The other arguments are path or url of project template source.
-(eg. `~/my-clow-templates/babel`, `https://github.com/airtoxin/clow/archive/master.zip`)
+The other arguments are path or url (or github shorthand) of project template source.
+(eg. `~/my-clow-templates/babel`, `https://github.com/airtoxin/clow/archive/master.zip`, `github:airtoxin/clow-template-babel`)
 Template url only support compressed file url.
 
 ### Template project structure
@@ -80,28 +78,13 @@ Runs other clow task.
 
 + __templates__: file or url of project template sources.
 
-### Write plugin
+#### npm-install
 
-clow exports `clow(srcDir, destDir)` as default and class `BaseTask` as named.
-Task plugin implemented as a class extending BaseTask.
+Install npm's package.
 
 ```js
-import clow, { BaseTask } from 'clow';
-
-export default class HelloTask extends BaseTask {
-  constructor(srcDir, destDir) {
-    super();
-
-    this.name = 'hello';
-  }
-
-  run(task) {
-    this.log(`hello ${task.name}!`);
-  }
-}
+{ type: 'npm-install': dependencies: ['babel-polyfill'], devDependencies: ['babel-cli', 'babel-preset-es2015'] }
 ```
-
-
 
 ## License
 
