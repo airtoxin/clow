@@ -15,7 +15,7 @@ export function getTmpDir() {
 export async function tryFetchGithub(src) {
   // src is github:<username>/<respository>:<ref>
   // ref is all tags, branches, commits, ...
-  const match = src.match(/github:(\w+)\/(\w+)(:(\w+))?/);
+  const match = src.match(/github:([\w-]+)\/([\w-]+)(:([\w-]+))?/);
   if (!match) return undefined;
   const [_1, user, repo, _2, ref = 'master'] = match; // eslint-disable-line no-unused-vars
 
