@@ -1,5 +1,5 @@
 import BaseTask from './base-task';
-import { downloadTmp } from '../utils';
+import { normalizeSrc } from '../utils';
 import clow from '../index';
 
 export default class ClowTemplateTask extends BaseTask {
@@ -7,17 +7,16 @@ export default class ClowTemplateTask extends BaseTask {
     super();
 
     this.name = 'clow-template';
+    this.srcDir = srcDir;
     this.destDir = destDir;
   }
 
   async run(task) {
-    for (const url of task.templates) {
-      const templateDir = await downloadTmp(url);
-      this.log(`temporary file saved: ${templateDir}`);
-
-      this.log(`Start clow: ${url}`);
-      await clow(templateDir, this.destDir);
-      this.log(`Finish clow: ${url}`);
+    for (const src of task.templates) {
+      const srcDir = await normalizeSrc(this.srcDir, src);
+      this.log(`Start clow: ${srcDir}`);
+      await clow(srcDir, this.destDir);
+      this.log(`Finish clow: ${srcDir}`);
     }
   }
 }

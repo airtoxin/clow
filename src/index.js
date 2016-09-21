@@ -10,15 +10,14 @@ export default async function clow(srcDir, destDir) {
   const taskrunners = defaultTasks.map(Task => new Task(srcDir, destDir));
 
   const clowFilePath = path.resolve(srcDir, 'clow');
-  // eslint-disable-next-line global-require
-  const tasks = require(clowFilePath);
+  const tasks = require(clowFilePath); // eslint-disable-line global-require
 
   for (const task of tasks) {
     for (const runner of taskrunners) {
       await runner.checkAndRun(task);
     }
     // eslint-disable-next-line no-console
-    console.log(); // spacing each taks logs
+    console.log(); // spacing each task logs
   }
 }
 
