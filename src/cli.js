@@ -9,7 +9,7 @@ import { downloadTmp } from './utils';
 import clow from './index';
 
 // eslint-disable-next-line consistent-return
-async function handler() {
+const handler = (async) () => {
   const cli = meow(`
     Usage:
       $ clow <src> [src...] <dest>
@@ -35,6 +35,6 @@ async function handler() {
       await clow(srcDir, destDir);
     }
   }
-}
+};
 
 handler();
