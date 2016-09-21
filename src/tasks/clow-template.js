@@ -3,11 +3,10 @@ import { downloadTmp } from '../utils';
 import clow from '../index';
 
 export default class ClowTemplateTask extends BaseTask {
-  constructor(generatorDir, destDir) {
+  constructor(srcDir, destDir) {
     super();
 
     this.name = 'clow-template';
-    this.generatorDir = generatorDir;
     this.destDir = destDir;
   }
 

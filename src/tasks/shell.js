@@ -2,7 +2,7 @@ import BaseTask from './base-task';
 import { pExec } from '../utils';
 
 export default class ShellTask extends BaseTask {
-  constructor(generatorDir, destDir) {
+  constructor(srcDir, destDir) {
     super();
 
     this.name = 'shell';

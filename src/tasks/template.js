@@ -9,11 +9,11 @@ import Hogan from 'hogan.js';
 import BaseTask from './base-task';
 
 export default class TemplateTask extends BaseTask {
-  constructor(generatorDir, destDir) {
+  constructor(srcDir, destDir) {
     super();
 
     this.name = 'template';
-    this.generatorDir = generatorDir;
+    this.srcDir = srcDir;
     this.destDir = destDir;
   }
 
@@ -38,7 +38,7 @@ export default class TemplateTask extends BaseTask {
 
   async run(task) {
     const args = await this.complimentTemplateArgs(task.args);
-    const srcDir = path.resolve(this.generatorDir, task.src.cwd);
+    const srcDir = path.resolve(this.srcDir, task.src.cwd);
     const destDir = path.resolve(this.destDir, task.dest);
     const filenames = glob.sync(task.src.pattern, { cwd: srcDir, dot: true });
 

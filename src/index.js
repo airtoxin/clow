@@ -17,14 +17,14 @@ function getClowTaskPlugins() {
   });
 }
 
-export default async function clow(generatorDir, destDir) {
+export default async function clow(srcDir, destDir) {
   const defaultTasks = [ShellTask, TemplateTask, ClowTemplateTask];
   const installedTasks = await getClowTaskPlugins();
   const taskrunners = []
     .concat(defaultTasks, installedTasks)
-    .map(Task => new Task(generatorDir, destDir));
+    .map(Task => new Task(srcDir, destDir));
 
-  const clowFilePath = path.resolve(generatorDir, 'clow');
+  const clowFilePath = path.resolve(srcDir, 'clow');
   // eslint-disable-next-line global-require
   const tasks = require(clowFilePath);
 
