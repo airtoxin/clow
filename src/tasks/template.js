@@ -5,7 +5,7 @@ import glob from 'glob';
 import is from 'is';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import Hogan from 'hogan.js';
+import hogan from 'hogan.js';
 import BaseTask from './base-task';
 
 export default class TemplateTask extends BaseTask {
@@ -43,13 +43,14 @@ export default class TemplateTask extends BaseTask {
     const filenames = glob.sync(task.src.pattern, { cwd: srcDir, dot: true });
 
     for (const filename of filenames) {
+      const compiledFilename = hogan.compile(filename).render(args);
       const srcFile = path.resolve(srcDir, filename);
-      const destFile = path.resolve(destDir, filename);
+      const destFile = path.resolve(destDir, compiledFilename);
 
       const stat = fs.statSync(srcFile);
 
       if (stat.isFile()) {
-        const template = Hogan.compile(fs.readFileSync(srcFile, 'utf8'));
+        const template = hogan.compile(fs.readFileSync(srcFile, 'utf8'));
         fse.outputFileSync(destFile, template.render(args));
       } else if (stat.isDirectory()) {
         fse.ensureDirSync(destFile);
