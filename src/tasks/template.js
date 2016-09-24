@@ -6,6 +6,7 @@ import is from 'is';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import hogan from 'hogan.js';
+import isTextFile from 'istextfile';
 import BaseTask from './base-task';
 
 export default class TemplateTask extends BaseTask {
@@ -49,14 +50,18 @@ export default class TemplateTask extends BaseTask {
 
       const stat = fs.statSync(srcFile);
 
-      if (stat.isFile()) {
+      if (stat.isDirectory()) {
+        fse.ensureDirSync(destFile);
+        this.log(`directory: ${srcFile} -> ${destFile}`);
+      } else if (stat.isFile() && isTextFile(srcFile)) {
         const template = hogan.compile(fs.readFileSync(srcFile, 'utf8'));
         fse.outputFileSync(destFile, template.render(args));
-      } else if (stat.isDirectory()) {
-        fse.ensureDirSync(destFile);
+        this.log(`source file: ${srcFile} -> ${destFile}`);
+      } else if (stat.isFile()) {
+        // TODO
+        await this.pExec(`cp ${srcFile} ${destFile}`);
+        this.log(`non-text file: ${srcFile} -> ${destFile}`);
       }
-
-      this.log(`${srcFile} -> ${destFile}`);
     }
   }
 }
