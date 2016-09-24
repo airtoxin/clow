@@ -59,9 +59,18 @@ export default class TemplateTask extends BaseTask {
         this.log(`source file: ${srcFile} -> ${destFile}`);
       } else if (stat.isFile()) {
         // TODO
-        await this.pExec(`cp ${srcFile} ${destFile}`);
+        await TemplateTask.copy(srcFile, destFile);
         this.log(`non-text file: ${srcFile} -> ${destFile}`);
       }
     }
+  }
+
+  static copy(src, dest) {
+    return new Promise((resolve, reject) => {
+      fse.copy(src, dest, (error) => {
+        if (error) return reject(error);
+        return resolve();
+      });
+    });
   }
 }
