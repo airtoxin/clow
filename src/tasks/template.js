@@ -42,9 +42,10 @@ export default class TemplateTask extends BaseTask {
     const srcDir = path.resolve(this.srcDir, task.src.cwd);
     const destDir = path.resolve(this.destDir, task.dest);
     const filenames = glob.sync(task.src.pattern, { cwd: srcDir, dot: true });
+    const hoganOptions = { delimiters: task.delimiters };
 
     for (const filename of filenames) {
-      const compiledFilename = hogan.compile(filename).render(args);
+      const compiledFilename = hogan.compile(filename, hoganOptions).render(args);
       const srcFile = path.resolve(srcDir, filename);
       const destFile = path.resolve(destDir, compiledFilename);
 
@@ -54,7 +55,7 @@ export default class TemplateTask extends BaseTask {
         fse.ensureDirSync(destFile);
         this.log(`directory: ${srcFile} -> ${destFile}`);
       } else if (stat.isFile() && isTextFile(srcFile)) {
-        const template = hogan.compile(fs.readFileSync(srcFile, 'utf8'));
+        const template = hogan.compile(fs.readFileSync(srcFile, 'utf8'), hoganOptions);
         fse.outputFileSync(destFile, template.render(args));
         this.log(`source file: ${srcFile} -> ${destFile}`);
       } else if (stat.isFile()) {

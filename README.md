@@ -57,6 +57,7 @@ Compile template files of `Hogan.js` and put them to dest.
 + __src.pattern__: glob pattern of input files.
 + __dest__: relative path of destination directory of compiled files.
 + __args__: `Hogan.js` variable mapping object. If  value is `null`, clow ask you 'what is this value?' at runtime.
++ __delimiters__: `Hogan.js` delimiters option. (optional)
 
 #### shell
 
